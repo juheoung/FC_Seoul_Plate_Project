@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'restaurant',
+    'blogs',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'Seoul_Plate.urls'
+
+MEDIA_URL = '/'
+
 
 TEMPLATES = [
     {
