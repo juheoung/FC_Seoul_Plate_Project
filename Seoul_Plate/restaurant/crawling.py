@@ -21,7 +21,7 @@ class crawling:
         'https://www.mangoplate.com/search/%EC%84%B1%EC%88%98%EB%8F%99?keyword=%EC%84%B1%EC%88%98%EB%8F%99&page=10',
     ]
 
-    driver = webdriver.Chrome('/Users/parkjuheoung/Downloads/chromedriver')
+    driver = webdriver.Chrome('/Users/mellomasi/Downloads/chromedriver')
     driver.implicitly_wait(3)
 
     driver.get('https://www.mangoplate.com/search/%EC%84%B1%EC%88%98%EB%8F%99')
@@ -83,6 +83,4 @@ class crawling:
             )
 
 
-a = crawling()
-
-a
+crawling()
