@@ -82,5 +82,6 @@ class crawling:
                 rest_time=rest_time,
             )
 
+    driver.close()
 
 crawling()
