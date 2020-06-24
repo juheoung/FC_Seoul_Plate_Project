@@ -42,3 +42,10 @@ class UserTestCase(APITestCase):
         self.assertEqual(review_response.review_text, self.test_review.review_text)
         self.assertEqual(review_response.revies_image, self.test_review.image)
         self.fail()
+
+    def test_should_delete_review(self):
+        test_review = self.test_reviews[0]
+        response = self.client.delete('/api/reviews/1')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertFalse()
+        self.fail()
