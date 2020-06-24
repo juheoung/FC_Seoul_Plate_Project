@@ -8,6 +8,3 @@ class RestViewSet(viewsets.ModelViewSet):
     queryset = Restaurant
     serializer_class = RestSerializer
 
-    # print('1')
-    a = crawling()
-    a()
