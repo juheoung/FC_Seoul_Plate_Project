@@ -1,18 +1,22 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
+from bookmarks.serializers import BookMarkSerializer
 from review.serializers import ReviewSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
-    owner_rest = ReviewSerializer(many=True, read_only=True)
+    owner_user = ReviewSerializer(many=True, read_only=True)
+    user = BookMarkSerializer(many=True, read_only=True)
+
     class Meta:
         model = User
         fields = (
             'id',
             'username',
             'password',
-            'owner_rest',
+            'owner_user',
+            'user',
         )
 
         extra_kwargs = {
