@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'review',
     'user',
     'blogs',
+    'bookmarks',
     'rest_framework.authtoken',
 ]
 
