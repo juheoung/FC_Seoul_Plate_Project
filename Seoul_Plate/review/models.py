@@ -15,6 +15,6 @@ class Review(models.Model):
     owner_rest = models.ForeignKey(Restaurant, related_name='urls', on_delete=models.CASCADE, null=True)
     # owner_user = models.ForeignKey(User, related_name='urls', on_delete=models.CASCADE, null=True)
     review_text = models.TextField()
-    review_image = models.ImageField()
+    review_image = models.ImageField(upload_to='image_')
     taste_value = models.CharField(max_length=10, choices=TASTE_CHOICES, default=SOSO)
     updated_at = models.DateTimeField(auto_now_add=True)
