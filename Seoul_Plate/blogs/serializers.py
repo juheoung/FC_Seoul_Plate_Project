@@ -11,4 +11,5 @@ class BlogSerializer(serializers.ModelSerializer):
             'post_contents',
             'post_image',
             'post_date',
+            'post_owner',
         )
