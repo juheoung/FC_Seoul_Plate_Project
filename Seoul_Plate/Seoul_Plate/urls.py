@@ -24,6 +24,7 @@ urlpatterns = [
     path('api/blogs/', include('blogs.urls')),
     path('api/restaurant/', include('restaurant.urls')),
     path('api/user/', include('user.urls')),
+    path('api/bookmark/', include('bookmarks.urls')),
 ]
 
 urlpatterns += [
