@@ -8,3 +8,4 @@ class BlogSerializer(ModelSerializer):
         model = Blog
         # owner 나중에 추가
         fields = ('post_title', 'post_contents', 'post_image','post_date',)
+
