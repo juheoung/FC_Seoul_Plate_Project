@@ -7,4 +7,9 @@ class BlogSerializer(ModelSerializer):
     class Meta:
         model = Blog
         # owner 나중에 추가
-        fields = ('post_title', 'post_contents', 'post_image','post_date',)
+        fields = (
+            'post_title',
+            'post_contents',
+            'post_image',
+            'post_date',
+        )
