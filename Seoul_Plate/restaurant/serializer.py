@@ -9,9 +9,10 @@ class RestSerializer(serializers.ModelSerializer):
         fields = (
             'rest_name',
             'rest_star',
-            'rest_food ',
+            'rest_address',
             'rest_phone_number',
+            'rest_food',
             'rest_sale',
-            'rest_park',
             'rest_time',
+            'rest_break_time',
         )

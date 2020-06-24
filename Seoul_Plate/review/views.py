@@ -8,7 +8,7 @@ from review.serializers import ReviewSerializer
 
 
 class ReviewViewSet(ModelViewSet):
-    queryset = Review.Objects.all()
+    queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
 
