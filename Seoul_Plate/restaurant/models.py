@@ -10,3 +10,6 @@ class Restaurant(models.Model):
     rest_sale = models.TextField(null=True, default=None)
     rest_time = models.TextField(null=True, default=None)
     rest_break_time = models.TextField(null=True, default=None)
+
+    def __str__(self):
+        return self.rest_name
