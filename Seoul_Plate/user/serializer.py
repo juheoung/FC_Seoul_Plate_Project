@@ -5,14 +5,14 @@ from review.serializers import ReviewSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
-    owner_user = ReviewSerializer(many=True, read_only=True)
+    owner_rest = ReviewSerializer(many=True, read_only=True)
     class Meta:
         model = User
         fields = (
-            'owner_user',
             'id',
             'username',
             'password',
+            'owner_rest',
         )
 
         extra_kwargs = {
