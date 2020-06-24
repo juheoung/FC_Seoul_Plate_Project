@@ -13,7 +13,7 @@ class Review(models.Model):
         (BAD, 'Bad'),
     ]
     owner_rest = models.ForeignKey(Restaurant, related_name='urls', on_delete=models.CASCADE, null=True)
-    owner_user = models.ForeignKey(User, related_name='urls', on_delete=models.CASCADE, null=True)
+    # owner_user = models.ForeignKey(User, related_name='urls', on_delete=models.CASCADE, null=True)
     review_text = models.TextField()
     review_image = models.ImageField()
     taste_value = models.CharField(max_length=10, choices=TASTE_CHOICES, default=SOSO)

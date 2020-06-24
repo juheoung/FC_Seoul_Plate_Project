@@ -10,3 +10,5 @@ from review.serializers import ReviewSerializer
 class ReviewViewSet(ModelViewSet):
     queryset = Review.Objects.all()
     serializer_class = ReviewSerializer
+
+
