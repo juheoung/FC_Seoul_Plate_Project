@@ -7,4 +7,11 @@ class ReviewSerializer(ModelSerializer):
     class Meta:
         model = Review
         # fields = ['id', 'owner_rest', 'owner_user','review_text' ,'review_image', 'taste_value', 'updated_at']
-        fields = ['id', 'owner_rest', 'review_text' ,'review_image', 'taste_value', 'updated_at']
+        fields = (
+            'id',
+            'owner_rest',
+            'review_text',
+            'review_image',
+            'taste_value',
+            'updated_at'
+        )
