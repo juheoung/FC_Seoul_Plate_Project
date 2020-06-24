@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from restaurant.models import Rest
 
 
-class crawling:
+class Crawling:
     from selenium import webdriver
 
     # 망고플레이트 성수동 검색 결과 하단 다음페이지 모음
@@ -21,7 +21,7 @@ class crawling:
         'https://www.mangoplate.com/search/%EC%84%B1%EC%88%98%EB%8F%99?keyword=%EC%84%B1%EC%88%98%EB%8F%99&page=10',
     ]
 
-    driver = webdriver.Chrome('/Users/mellomasi/Downloads/chromedriver')
+    driver = webdriver.Chrome('/Users/parkjuheoung/Downloads/chromedriver')
     driver.implicitly_wait(3)
 
     driver.get('https://www.mangoplate.com/search/%EC%84%B1%EC%88%98%EB%8F%99')
@@ -32,44 +32,47 @@ class crawling:
         for val in driver.find_elements_by_xpath(
                 '/html/body/main/article/div[2]/div/div/section/div[3]/ul/li/div/figure/a'):
             headers = {
-                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36'
+                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko)'
+                              'Chrome/83.0.4103.106 Safari/537.36 '
             }
             url = val.get_attribute('href')
             print(url)
             html = requests.get(url, headers=headers).text
             soup = BeautifulSoup(html, 'html.parser')
-            if soup.find(class_='restaurant_name'):
-                rest_name = soup.find(class_='restaurant_name').text.strip().replace('\n', '')
-            else:
-                rest_name = None
+
+            rest_name = soup.find(class_='restaurant_name').text.strip().replace('\n', '')
             if soup.find(class_='rate-point'):
                 rest_star = soup.find(class_='rate-point').text.strip().replace('\n', '')
             else:
                 rest_star = None
-            if soup.select_one('.info>tbody>tr:nth-child(1)>td'):
-                rest_address = soup.select_one('.info>tbody>tr:nth-child(1)>td').text.strip().replace('\n', ' ')
-            else:
-                rest_address = None
-            if soup.select_one('.info>tbody>tr:nth-child(3)>td'):
-                rest_food = soup.select_one('.info>tbody>tr:nth-child(3)>td').text.strip().replace('\n', ' ')
-            else:
-                rest_food = None
-            if soup.select_one('.info>tbody>tr:nth-child(2)>td'):
-                rest_phone_number = soup.select_one('.info>tbody>tr:nth-child(2)>td').text.strip().replace('\n', ' ')
-            else:
-                rest_phone_number = None
-            if soup.select_one('.info>tbody>tr:nth-child(4)>td'):
-                rest_sale = soup.select_one('.info>tbody>tr:nth-child(4)>td').text.strip().replace('\n', ' ')
-            else:
-                rest_sale = None
-            if soup.select_one('.info>tbody>tr:nth-child(5)>td'):
-                rest_park = soup.select_one('.info>tbody>tr:nth-child(5)>td').text.strip().replace('\n', ' ')
-            else:
-                rest_park = None
-            if soup.select_one('.info>tbody>tr:nth-child(6)>td'):
-                rest_time = soup.select_one('.info>tbody>tr:nth-child(6)>td').text.strip().replace('\n', ' ')
-            else:
-                rest_time = None
+
+            source = soup.find('tbody')
+            name = source.find_all('td')
+            value = source.find_all('th')
+
+            rest_address = None
+            rest_food = None
+            rest_phone_number = None
+            rest_sale = None
+            rest_time = None
+            rest_break_time = None
+
+            for key, value in zip(value, name):
+                key = key.text.strip().replace('\n', '')
+                value = value.text.strip().replace('\n', '')
+
+                if key == '주소':
+                    rest_address = value
+                elif key == '음식 종류':
+                    rest_food = value
+                elif key == '전화번호':
+                    rest_phone_number = value
+                elif key == '가격대':
+                    rest_sale = value
+                elif key == '영업시간':
+                    rest_time = value
+                elif key == '쉬는시간':
+                    rest_break_time = value
 
             Rest.objects.get_or_create(
                 rest_name=rest_name,
@@ -78,10 +81,13 @@ class crawling:
                 rest_food=rest_food,
                 rest_phone_number=rest_phone_number,
                 rest_sale=rest_sale,
-                rest_park=rest_park,
                 rest_time=rest_time,
+                rest_break_time=rest_break_time,
+
             )
 
     driver.close()
 
-crawling()
+
+start_crawling = Crawling()
+start_crawling
