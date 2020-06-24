@@ -1,12 +1,15 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 
 from blogs.models import Blog
+from user.serializer import UserSerializer
 
 
-class BlogSerializer(ModelSerializer):
+class BlogSerializer(serializers.ModelSerializer):
+    post_owner = serializers.ReadOnlyField()
+    # post_owner = UserSerializer()
+
     class Meta:
         model = Blog
-        # owner 나중에 추가
         fields = (
             'post_title',
             'post_contents',

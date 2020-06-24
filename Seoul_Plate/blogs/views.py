@@ -9,3 +9,5 @@ class BlogViewSet(ModelViewSet):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(post_owner=self.request.user)
