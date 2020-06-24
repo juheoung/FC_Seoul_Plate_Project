@@ -3,6 +3,7 @@ from .models import BookMark
 
 
 class BookMarkSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = BookMark
         fields = (
