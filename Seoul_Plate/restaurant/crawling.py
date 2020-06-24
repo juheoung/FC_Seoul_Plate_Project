@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from restaurant.models import Rest
 
 
-class crawling:
+class Crawling:
     from selenium import webdriver
 
     # 망고플레이트 성수동 검색 결과 하단 다음페이지 모음
@@ -83,6 +83,6 @@ class crawling:
             )
 
 
-a = crawling()
+a = Crawling()
 
 a

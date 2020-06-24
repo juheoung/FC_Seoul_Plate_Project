@@ -1,11 +1,11 @@
 from rest_framework import serializers
 
-from restaurant.models import Rest
+from restaurant.models import Restaurant
 
 
 class RestSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Rest
+        model = Restaurant
         fields = (
             'rest_name',
             'rest_star',
