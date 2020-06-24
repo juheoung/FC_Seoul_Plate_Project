@@ -12,6 +12,7 @@ from review.models import Review
 class UserTestCase(APITestCase):
     def setUp(self) -> None:
         self.test_reviews = baker.make('review.Review', _quantity=3)
+        self.test_user = baker.make('auth.User', _quantity=1)
 
     def test_should_list_review(self):
         # self.client.force_authenticate(user=self.testAccount)
@@ -33,14 +34,18 @@ class UserTestCase(APITestCase):
         # self.assertEqual(response.data['review_image'], test_review.review_image)
 
     def test_should_create_review(self):
-        data = {""}
-        self.fail()
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        data = {"review_test": "new review",
+                "review_image": "https://miro.medium.com/max/450/1*5p5qI74s7nM0fTo7uZ6xdg.jpeg",
+                "taste_value": "SOSO",
+                "owner_rest": 1,
+                "owner_user": self.test_user.id,}
+        response = self.client.post('/api/reviews/')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         print(response.data['id'])
         review_response = Munch(response.data)
         self.assertTrue(review_response.id)
-        self.assertEqual(review_response.review_text, self.test_review.review_text)
-        self.assertEqual(review_response.revies_image, self.test_review.image)
+        self.assertEqual(review_response.review_text, data['review_text'])
+        self.assertEqual(review_response.revies_image, data['review_image'])
         self.fail()
 
     def test_should_delete_review(self):
