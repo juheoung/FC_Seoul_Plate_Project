@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from restaurant.crawling import crawling
+from restaurant.crawling import Crawling
 from restaurant.models import Restaurant
 from restaurant.serializer import RestSerializer
 

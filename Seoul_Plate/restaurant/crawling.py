@@ -86,6 +86,8 @@ class Crawling:
 
             )
 
+    driver.close()
+
 
 start_crawling = Crawling()
 start_crawling
