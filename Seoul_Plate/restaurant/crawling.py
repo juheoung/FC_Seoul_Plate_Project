@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-from restaurant.models import Rest
+from restaurant.models import Restaurant
 
 
 class Crawling:
@@ -74,7 +74,7 @@ class Crawling:
                 elif key == '쉬는시간':
                     rest_break_time = value
 
-            Rest.objects.get_or_create(
+            Restaurant.objects.get_or_create(
                 rest_name=rest_name,
                 rest_star=rest_star,
                 rest_address=rest_address,
