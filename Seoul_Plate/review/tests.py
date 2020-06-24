@@ -35,3 +35,10 @@ class UserTestCase(APITestCase):
     def test_should_create_review(self):
         data = {""}
         self.fail()
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        print(response.data['id'])
+        review_response = Munch(response.data)
+        self.assertTrue(review_response.id)
+        self.assertEqual(review_response.review_text, self.test_review.review_text)
+        self.assertEqual(review_response.revies_image, self.test_review.image)
+        self.fail()
