@@ -1,12 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
+from selenium import webdriver
 
-from restaurant.models import Restaurant
+from .models import Restaurant
 
 
 class Crawling:
-    from selenium import webdriver
-
     # 망고플레이트 성수동 검색 결과 하단 다음페이지 모음
     search_paging_array = [
         'https://www.mangoplate.com/search/%EC%84%B1%EC%88%98%EB%8F%99?keyword=%EC%84%B1%EC%88%98%EB%8F%99&page=1',
