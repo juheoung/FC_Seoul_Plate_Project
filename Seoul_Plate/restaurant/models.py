@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Rest(models.Model):
+class Restaurant(models.Model):
     rest_name = models.TextField(null=True, default=None)
     rest_star = models.TextField(null=True, default=None)
     rest_address = models.TextField(null=True, default=None)
