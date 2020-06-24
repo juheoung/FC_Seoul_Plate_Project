@@ -21,5 +21,5 @@ urlpatterns = [
     path('api/reviews/', include('review.urls')),
     path('api/blogs/', include('blogs.urls')),
     path('api/restaurant/', include('restaurant.urls')),
-
+    path('api/user/', include('user.usls')),
 ]
