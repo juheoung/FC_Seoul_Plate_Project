@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'rest_framework',
     'restaurant',
     'review',
@@ -42,9 +43,6 @@ INSTALLED_APPS = [
     'blogs',
     'bookmarks',
     'rest_framework.authtoken',
-
-    # django -extensions -third
-    'django_extensions',
 ]
 
 MIDDLEWARE = [

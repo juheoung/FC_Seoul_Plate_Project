@@ -1,10 +1,12 @@
-from rest_framework import serializers
+from rest_framework import serializers, status
+from rest_framework.response import Response
 
 from restaurant.serializer import RestSerializer
 from .models import BookMark
 
 
 class BookMarkSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = BookMark
         fields = (
