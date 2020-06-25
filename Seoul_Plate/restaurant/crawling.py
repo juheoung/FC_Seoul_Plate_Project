@@ -21,6 +21,7 @@ class Crawling:
     ]
 
     driver = webdriver.Chrome('/Users/parkjuheoung/Downloads/chromedriver')
+
     driver.implicitly_wait(3)
 
     driver.get('https://www.mangoplate.com/search/%EC%84%B1%EC%88%98%EB%8F%99')
