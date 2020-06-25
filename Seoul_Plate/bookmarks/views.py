@@ -22,7 +22,7 @@ class BookMarkViewSet(
             bookmarks=request.user,
         )
         if ins:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
         else:
             return super().create(request, *args, **kwargs)
 
