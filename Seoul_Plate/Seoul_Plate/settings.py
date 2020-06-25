@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'blogs',
     'bookmarks',
     'rest_framework.authtoken',
+
+    # django -extensions -third
+    'django_extensions',
 ]
 
 MIDDLEWARE = [

@@ -37,14 +37,8 @@ class UserTestCase(APITestCase):
         self.assertEqual(response.data['review_image'], test_review.review_image)
 
     def test_should_create_review(self):
-<<<<<<< HEAD
-        login_data = {
-            "username": self.test_user['username'],
-            "password": "12345",
-        }
-=======
         data = {"review_text": "new review",
-                #"review_image": None,
+                # "review_image": None,
                 "taste_value": "SOSO",
                 "owner_rest": self.test_restaurant.id,
                 "owner_user": self.test_user.id,
@@ -60,7 +54,6 @@ class UserTestCase(APITestCase):
         self.assertEqual(review_response.review_text, data['review_text'])
         # self.assertEqual(review_response.review_image, data['review_image'])
         self.fail()
->>>>>>> 33e3eae3902572e409ac62368be848393b69cb84
 
     def test_should_delete_review(self):
         test_review = self.test_reviews[0]
