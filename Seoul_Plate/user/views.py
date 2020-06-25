@@ -19,7 +19,7 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         token, created = Token.objects.get_or_create(user=user)
-        return Response({'token': token.key})
+        return Response({'token': token.key}, status=status.HTTP_201_CREATED, )
 
     @action(methods=['delete'], detail=False)
     def logout(self, request, *args, **kwargs):
