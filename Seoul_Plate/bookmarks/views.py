@@ -12,5 +12,3 @@ class BookMarkViewSet(ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(bookmarks=self.request.user)
 
-
-

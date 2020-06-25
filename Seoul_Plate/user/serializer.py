@@ -1,8 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from bookmarks.models import BookMark
-from bookmarks.serializers import BookMarkSerializer, BookMarkUserSerializer
+from bookmarks.serializers import BookMarkUserSerializer
 from review.serializers import ReviewSerializer
 
 
@@ -13,11 +12,11 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
-            'owner_user',
-            'bookmarks',
             'id',
             'username',
             'password',
+            'owner_user',
+            'bookmarks',
         )
 
         extra_kwargs = {
