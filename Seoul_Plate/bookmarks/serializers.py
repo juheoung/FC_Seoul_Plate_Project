@@ -9,7 +9,7 @@ class BookMarkSerializer(serializers.ModelSerializer):
         model = BookMark
         fields = (
             'restaurant',
-            'user',
+            'bookmarks',
         )
 
 
@@ -22,3 +22,8 @@ class UserBookMarkSerializer(serializers.ModelSerializer):
 
     def perform_create(self, serializer):
         serializer.save(ip=self.request.META['REMOTE_ADDR'])
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['rest_info'] = RestSerializer(instance.restaurant).data
+        return response

@@ -7,7 +7,7 @@ from review.serializers import ReviewSerializer
 
 class UserSerializer(serializers.ModelSerializer):
     owner_user = ReviewSerializer(many=True, read_only=True)
-    user = UserBookMarkSerializer(many=True, read_only=True)
+    bookmarks = UserBookMarkSerializer(many=True, read_only=True)
 
     class Meta:
         model = User
@@ -16,7 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
             'username',
             'password',
             'owner_user',
-            'user',
+            'bookmarks',
         )
 
         extra_kwargs = {
