@@ -48,12 +48,8 @@ class UserTestCase(APITestCase):
         self.assertEqual(response.data['review_image'], test_review.review_image)
 
     def test_should_create_review(self):
-        """
-        Request : POST - /api/reviews/
-        * Image field test : in test code 301 error(postman tested fine)
-        """
         data = {"review_text": "new review",
-                #"review_image": None,
+                # "review_image": None,
                 "taste_value": "SOSO",
                 "owner_rest": self.test_restaurant.id,
                 "owner_user": self.test_user.id,

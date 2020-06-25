@@ -4,6 +4,7 @@ from restaurant.models import Restaurant
 
 
 class RestSerializer(serializers.ModelSerializer):
+    rest_count = serializers.ReadOnlyField()
     class Meta:
         model = Restaurant
         fields = (
@@ -15,4 +16,5 @@ class RestSerializer(serializers.ModelSerializer):
             'rest_sale',
             'rest_time',
             'rest_break_time',
+            'rest_count'
         )
