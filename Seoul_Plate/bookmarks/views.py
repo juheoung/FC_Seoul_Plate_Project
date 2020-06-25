@@ -2,6 +2,8 @@ from restaurant.models import Restaurant
 from rest_framework import status, mixins
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
+
+from restaurant.serializer import RestSerializer
 from .models import BookMark
 from bookmarks.serializers import BookMarkSerializer
 
@@ -37,7 +39,7 @@ class BookMarkViewSet(
             return Response(status.HTTP_404_NOT_FOUND)
 
     def perform_create(self, serializer):
-        instance = Restaurant.objects.get(id=serializer.data['restaurant'])
+        instance = Restaurant.objects.get(id=self.request.data['restaurant'])
         instance.rest_count += 1
         instance.save()
         serializer.save(
