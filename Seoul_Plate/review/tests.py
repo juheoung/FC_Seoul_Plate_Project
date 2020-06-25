@@ -57,9 +57,7 @@ class UserTestCase(APITestCase):
         self.client.force_authenticate(user=self.test_user)
 
         response = self.client.post('/api/reviews/', data=data)
-        print(response)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        print(response.data)
         review_response = Munch(response.data)
         self.assertTrue(review_response.id)
         self.assertEqual(review_response.review_text, data['review_text'])
@@ -111,3 +109,4 @@ class UserTestCase(APITestCase):
         self.assertTrue(review_response.id)
         self.assertNotEqual(review_response.review_text, prev_text)
         self.assertNotEqual(review_response.taste_value, prev_taste_value)
+
