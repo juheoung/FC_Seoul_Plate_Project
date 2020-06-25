@@ -8,6 +8,7 @@ class RestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Restaurant
         fields = (
+            'id',
             'rest_name',
             'rest_star',
             'rest_address',
