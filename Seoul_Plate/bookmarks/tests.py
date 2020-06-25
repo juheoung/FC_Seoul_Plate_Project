@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from bookmarks.models import BookMark
+from restaurant.models import Restaurant
 
 
 class BookMarkTestCode(APITestCase):
@@ -15,8 +16,9 @@ class BookMarkTestCode(APITestCase):
 
     def test_bookmark_create(self):
         self.client.force_authenticate(user=self.user)
+        res = Restaurant.objects.get(pk=1)
         data = {
-            'restaurant': '1'
+            'restaurant': res,
         }
         response = self.client.post('/api/bookmark/', data=data)
         print(response)
@@ -47,4 +49,3 @@ class BookMarkTestCode(APITestCase):
         ).count(), 1)
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
         self.assertEqual(response2.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
-

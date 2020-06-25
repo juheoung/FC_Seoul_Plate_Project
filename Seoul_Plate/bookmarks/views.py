@@ -26,17 +26,17 @@ class BookMarkViewSet(
         else:
             return super().create(request, *args, **kwargs)
 
-    def destroy(self, request, *args, **kwargs):
-
-        ins = BookMark.objects.filter(
-            restaurant=request.data['restaurant'],
-            bookmarks=request.user
-        )
-
-        if ins:
-            return super().destroy(request, *args, **kwargs)
-        else:
-            return Response(status.HTTP_404_NOT_FOUND)
+    # def destroy(self, request, *args, **kwargs):
+    #
+    #     ins = BookMark.objects.filter(
+    #         restaurant=request.data['restaurant'],
+    #         bookmarks=request.user
+    #     )
+    #
+    #     if ins:
+    #         return super().destroy(request, *args, **kwargs)
+    #     else:
+    #         return Response(status.HTTP_404_NOT_FOUND)
 
     def perform_create(self, serializer):
         instance = Restaurant.objects.get(id=self.request.data['restaurant'])
