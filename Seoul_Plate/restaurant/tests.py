@@ -14,11 +14,9 @@ class RestaurantTestCase(APITestCase):
         for test_rest, response_rest in zip(self.test_restaurant, response.data):
             self.assertEqual(test_rest.id, response_rest['id'])
             self.assertEqual(test_rest.rest_name, response_rest['rest_name'])
-        self.fail()
 
     def test_should_detail_restaurant(self):
         test_restaurant = self.test_restaurant[0]
         response = self.client.get(f'/api/restaurant/{test_restaurant.id}')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(test_restaurant.id, response.data['id'])
-        self.fail()
