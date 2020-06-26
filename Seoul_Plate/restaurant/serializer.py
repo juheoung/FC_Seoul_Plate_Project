@@ -23,7 +23,7 @@ class RestSerializer(serializers.ModelSerializer):
         )
 
 class RestDetailSerializer(serializers.ModelSerializer):
-    """ 식당 정보, 북마크 수 Serializer """
+    """ restaurant detail show review Serializer """
     rest_count = serializers.ReadOnlyField()
     owner_rest = ReviewSerializer(many=True, read_only=True)
 
