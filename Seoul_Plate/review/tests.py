@@ -27,20 +27,6 @@ class ReviewTestCase(APITestCase):
         # self.test_user.set_password(raw_password="1111")
         # self.test_user.save()
 
-
-    def test_should_list_review(self):
-        """
-        All review list
-        Request : GET - /api/reviews/
-        """
-        response = self.client.get('/api/reviews/')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-        for response_review, origin_review in zip(response.data, self.test_reviews):
-            self.assertEqual(response_review['id'], origin_review.id)
-            self.assertEqual(response_review['review_text'], origin_review.review_text)
-            self.assertEqual(response_review['review_image'], origin_review.review_image)
-
     def test_should_get_review(self):
         """
         Detail review information
