@@ -5,7 +5,7 @@ from model_bakery import baker
 from munch import Munch
 from rest_framework import status
 from rest_framework.test import APITestCase
-
+from rest_framework.authtoken.models import Token
 from restaurant.models import Restaurant
 from review.models import Review
 
@@ -63,6 +63,7 @@ class ReviewTestCase(APITestCase):
         """
         Request : DELETE - /api/reviews/
         """
+        self.client.force_authenticate(user=self.test_user)
         test_review = self.test_reviews[0]
         entry = Review.objects.get(id=self.review.id)
         self.client.force_authenticate(user=self.test_user)
