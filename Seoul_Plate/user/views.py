@@ -23,6 +23,7 @@ class UserViewSet(mixins.CreateModelMixin,
     def get_permissions(self):
         if self.action in ('login', 'create'):
             return [AllowAny()]
+        # if -> elif
         if self.action == 'logout':
             return [IsOwner()]
         return super().get_permissions()
@@ -34,7 +35,7 @@ class UserViewSet(mixins.CreateModelMixin,
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         token, created = Token.objects.get_or_create(user=user)
-        return Response({'token': token.key}, status=status.HTTP_201_CREATED, )
+        return Response({'token': token.key}, status=status.HTTP_201_CREATED)
 
     @action(methods=['delete'], detail=False)
     def logout(self, request, *args, **kwargs):
