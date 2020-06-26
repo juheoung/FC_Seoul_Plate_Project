@@ -6,6 +6,7 @@ from review.serializers import ReviewSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
+    """ User 정보 Serializer """
     owner_user = ReviewSerializer(many=True, read_only=True)
     bookmarks = UserBookMarkSerializer(many=True, read_only=True)
 
@@ -24,6 +25,7 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data):
+        """ POST: 유저 회원가입 """
         user = User(
             username=validated_data['username']
         )
@@ -32,6 +34,7 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
     def update(self, instance, validated_data):
+        """ PUT: 유저 비밀버호 수정 """
         for attr, value in validated_data.items():
             if attr == 'password':
                 instance.set_password(value)
