@@ -12,7 +12,10 @@ class RestaurantTestCase(APITestCase):
         response = self.client.get('/api/restaurant/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         for test_rest, response_rest in zip(self.test_restaurant, response.data):
+<<<<<<< HEAD
             print(response_rest)
+=======
+>>>>>>> e1a79450099e1fb86b9e432320f59f27e8766aeb
             self.assertEqual(test_rest.id, response_rest['id'])
             self.assertEqual(test_rest.rest_name, response_rest['rest_name'])
         self.fail()
@@ -21,4 +24,8 @@ class RestaurantTestCase(APITestCase):
         test_restaurant = self.test_restaurant[0]
         response = self.client.get(f'/api/restaurant/{test_restaurant.id}')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+<<<<<<< HEAD
+=======
+        self.assertEqual(test_restaurant.id, response.data['id'])
+>>>>>>> e1a79450099e1fb86b9e432320f59f27e8766aeb
         self.fail()

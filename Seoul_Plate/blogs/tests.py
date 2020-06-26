@@ -25,9 +25,13 @@ class BlogTestCase(APITestCase):
         }
 
         self.client.force_authenticate(user=self.user)
+<<<<<<< HEAD
 
         response = self.client.post('/api/blogs/', data=data)
 
+=======
+        response = self.client.post('/api/blogs/', data=data)
+>>>>>>> e1a79450099e1fb86b9e432320f59f27e8766aeb
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         blog_response = Munch(response.data)
         self.assertTrue(blog_response.id)

@@ -5,6 +5,16 @@ from restaurant.models import Restaurant
 
 
 class Review(models.Model):
+    """
+    ForeignKey
+    - Restaurant id(PK)
+    - User id(PK)
+
+    Contents
+    - review_text
+    - review_image
+    - taste_value
+    """
     GOOD = 'GOOD'
     SOSO = 'SOSO'
     BAD = 'BAD'
