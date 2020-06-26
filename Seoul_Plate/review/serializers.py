@@ -16,3 +16,9 @@ class ReviewSerializer(ModelSerializer):
             'taste_value',
             'updated_at',
         )
+
+    # 이렇게 할 수도 있지만 추천 하지 않고 perform_create() 사용 추천
+    def create(self, validated_data):
+        # serializer.context 사용 가
+        validated_data['owner_user'] = self.context['request'].user
+        return super().create(validated_data)

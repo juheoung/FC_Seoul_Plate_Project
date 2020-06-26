@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
     """ User 정보 Serializer """
     owner_user = ReviewSerializer(many=True, read_only=True)
     bookmarks = UserBookMarkSerializer(many=True, read_only=True)
-    blog_set = BlogSerializer(many = True, read_only= True)
+    blog_set = BlogSerializer(many=True, read_only=True)
 
     class Meta:
         model = User
@@ -38,6 +38,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         """ PUT: 유저 비밀버호 수정 """
+        # password랑 나머지 데이터 수정 분
         for attr, value in validated_data.items():
             if attr == 'password':
                 instance.set_password(value)

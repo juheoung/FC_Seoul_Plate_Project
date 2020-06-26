@@ -1,18 +1,17 @@
-from django.shortcuts import render
-
 # Create your views here.
 from rest_framework import permissions, mixins
-from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework.viewsets import GenericViewSet
+
 from review.models import Review
 from review.permissions import IsOwnerOrReadOnly
 from review.serializers import ReviewSerializer
 
 
 class ReviewViewSet(mixins.CreateModelMixin,
-                   mixins.RetrieveModelMixin,
-                   mixins.UpdateModelMixin,
-                   mixins.DestroyModelMixin,
-                   GenericViewSet):
+                    mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    mixins.DestroyModelMixin,
+                    GenericViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
