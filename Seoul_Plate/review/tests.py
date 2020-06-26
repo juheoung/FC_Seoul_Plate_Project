@@ -1,5 +1,4 @@
 from django.contrib.auth.models import User
-from django.test import TestCase
 
 # Create your tests here.
 from model_bakery import baker
@@ -11,7 +10,7 @@ from restaurant.models import Restaurant
 from review.models import Review
 
 
-class UserTestCase(APITestCase):
+class ReviewTestCase(APITestCase):
     def setUp(self) -> None:
         """
         Ready before test
@@ -20,6 +19,9 @@ class UserTestCase(APITestCase):
         self.test_reviews = baker.make('review.Review', _quantity=3)
         self.test_user = User.objects.create(username="test", password="1111")
         self.test_restaurant = Restaurant.objects.create()
+        self.test_user.set_password(raw_password="1111")
+        self.test_user.save()
+
 
     def test_should_list_review(self):
         """
@@ -72,9 +74,11 @@ class UserTestCase(APITestCase):
         """
         test_review = self.test_reviews[0]
         entry = Review.objects.get(id=test_review.id)
+        self.client.force_authenticate(user=self.test_user)
         response = self.client.delete(f'/api/reviews/{test_review.id}')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(Review.objects.filter(id=entry.id).exists())
+        self.fail()
 
     def test_should_update_review(self):
         """
@@ -95,6 +99,7 @@ class UserTestCase(APITestCase):
         self.assertTrue(review_response.id)
         self.assertNotEqual(review_response.review_text, prev_text)
         self.assertNotEqual(review_response.taste_value, prev_taste_value)
+        self.fail()
 
     def test_should_patch_review(self):
         """
@@ -112,4 +117,4 @@ class UserTestCase(APITestCase):
         self.assertTrue(review_response.id)
         self.assertNotEqual(review_response.review_text, prev_text)
         self.assertNotEqual(review_response.taste_value, prev_taste_value)
-
+        self.fail()
