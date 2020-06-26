@@ -13,7 +13,6 @@ class BookMarkViewSet(
     GenericViewSet):
     queryset = BookMark.objects.all()
     serializer_class = BookMarkSerializer
-
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     def create(self, request, *args, **kwargs):
