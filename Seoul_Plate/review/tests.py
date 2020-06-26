@@ -48,12 +48,9 @@ class UserTestCase(APITestCase):
         self.assertEqual(response.data['review_image'], test_review.review_image)
 
     def test_should_create_review(self):
-<<<<<<< HEAD
-=======
         """
         Request : POST - /api/reviews/
         """
->>>>>>> e1a79450099e1fb86b9e432320f59f27e8766aeb
         data = {"review_text": "new review",
                 # "review_image": None,
                 "taste_value": "SOSO",

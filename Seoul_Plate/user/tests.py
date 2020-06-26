@@ -1,20 +1,16 @@
-<<<<<<< HEAD
 from model_bakery import baker
 from rest_framework import status
-=======
 from django.contrib.auth.models import User
 from model_bakery import baker
 from munch import Munch
 from rest_framework import status
 from rest_framework.authtoken.models import Token
->>>>>>> e1a79450099e1fb86b9e432320f59f27e8766aeb
 from rest_framework.test import APITestCase
 
 
 class UserTestCase(APITestCase):
     def setUp(self) -> None:
         self.users = baker.make('auth.User', _quantity=3)
-<<<<<<< HEAD
 
     def test_list(self):
         """
@@ -29,29 +25,6 @@ class UserTestCase(APITestCase):
             self.assertEqual(user_response['id'], user.id)
             self.assertEqual(user_response['username'], user.username)
             self.assertEqual(user_response['email'], user.email)
-        self.fail()
-    def test_detail(self):
-        self.fail()
-
-    def test_create(self):
-        self.fail()
-
-    def test_delete(self):
-        self.fail()
-
-    def test_update(self):
-        self.fail()
-
-    def test_login(self):
-        self.fail()
-
-    def test_logout(self):
-        self.fail()
-=======
-        self.test_user = User.objects.create(username="test", password="1111")
-        self.test_user.set_password(raw_password="1111")
-        self.test_user.save()
-        self.data = {"username": "test", "password": "1111"}
 
     def test_should_list_user(self):
         """
@@ -136,4 +109,3 @@ class UserTestCase(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(Token.objects.filter(pk=token).exists())
->>>>>>> e1a79450099e1fb86b9e432320f59f27e8766aeb
