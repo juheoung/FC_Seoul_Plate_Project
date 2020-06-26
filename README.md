@@ -38,3 +38,11 @@ pip install -r requirements.txt
 - sign up for membership
 - show review written by user
 - show blogs written by user
+
+### contributors
+
+- 박주형
+- 서동혁
+- 최사라
+- 황선웅
+- 
