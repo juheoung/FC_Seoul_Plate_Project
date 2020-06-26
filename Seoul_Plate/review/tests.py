@@ -17,8 +17,8 @@ class UserTestCase(APITestCase):
         Ready before test
         Create random reviews(3) , random user(1), random restaurant(1)
         """
-        self.test_reviews = baker.make('review.Review', _quantity=3)
         self.test_user = User.objects.create(username="test", password="1111")
+        self.test_reviews = baker.make('review.Review', _quantity=3, )
         self.test_restaurant = Restaurant.objects.create()
 
     def test_should_list_review(self):
@@ -71,6 +71,7 @@ class UserTestCase(APITestCase):
         Request : DELETE - /api/reviews/
         """
         test_review = self.test_reviews[0]
+        self.client.force_authenticate(user=test_review)
         entry = Review.objects.get(id=test_review.id)
         response = self.client.delete(f'/api/reviews/{test_review.id}')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
