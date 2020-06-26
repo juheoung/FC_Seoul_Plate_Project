@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
+from blogs.serializers import BlogSerializer
 from bookmarks.serializers import UserBookMarkSerializer
 from review.serializers import ReviewSerializer
 
@@ -9,6 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
     """ User 정보 Serializer """
     owner_user = ReviewSerializer(many=True, read_only=True)
     bookmarks = UserBookMarkSerializer(many=True, read_only=True)
+    blog_set = BlogSerializer(many = True, read_only= True)
 
     class Meta:
         model = User
@@ -18,6 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
             'password',
             'owner_user',
             'bookmarks',
+            'blog_set',
         )
 
         extra_kwargs = {

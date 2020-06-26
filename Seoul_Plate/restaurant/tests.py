@@ -14,7 +14,7 @@ class RestaurantTestCase(APITestCase):
         """
         response = self.client.get('/api/restaurant/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        for test_rest, response_rest in zip(self.test_restaurant, response.data):
+        for test_rest, response_rest in zip(self.test_restaurant, response.data['results']):
             self.assertEqual(test_rest.id, response_rest['id'])
             self.assertEqual(test_rest.rest_name, response_rest['rest_name'])
 

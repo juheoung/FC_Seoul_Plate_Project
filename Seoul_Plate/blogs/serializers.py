@@ -15,3 +15,4 @@ class BlogSerializer(serializers.ModelSerializer):
             'post_image',
             'post_date',
         )
+        ordering = ['-post_date']
