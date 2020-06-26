@@ -16,8 +16,8 @@ class ReviewTestCase(APITestCase):
         Ready before test
         Create random reviews(3) , random user(1), random restaurant(1)
         """
-        self.test_reviews = baker.make('review.Review', _quantity=3)
         self.test_user = User.objects.create(username="test", password="1111")
+        self.test_reviews = baker.make('review.Review', _quantity=3, )
         self.test_restaurant = Restaurant.objects.create()
         self.review = Review.objects.create(review_text="for delete",
                                             owner_rest=self.test_restaurant,
