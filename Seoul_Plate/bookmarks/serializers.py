@@ -6,6 +6,8 @@ from .models import BookMark
 
 
 class BookMarkSerializer(serializers.ModelSerializer):
+    """ list: user_id, restaurant_id Serializer"""
+
     class Meta:
         model = BookMark
         fields = (
@@ -16,6 +18,7 @@ class BookMarkSerializer(serializers.ModelSerializer):
 
 
 class UserBookMarkSerializer(serializers.ModelSerializer):
+    """ 식당 정보 Serializer"""
     restaurant = RestSerializer(read_only=True)
 
     class Meta:

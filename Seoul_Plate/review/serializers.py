@@ -5,6 +5,7 @@ from review.models import Review
 
 
 class ReviewSerializer(ModelSerializer):
+    """ 리뷰 정보 Serializer """
     class Meta:
         model = Review
         fields = (

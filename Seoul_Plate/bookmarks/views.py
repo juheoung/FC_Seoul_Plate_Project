@@ -2,8 +2,6 @@ from restaurant.models import Restaurant
 from rest_framework import status, mixins, permissions
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
-
-from restaurant.serializer import RestSerializer
 from .models import BookMark
 from bookmarks.serializers import BookMarkSerializer
 from .permissions import IsOwnerOrReadOnly
@@ -27,18 +25,6 @@ class BookMarkViewSet(
             return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
         else:
             return super().create(request, *args, **kwargs)
-
-    # def destroy(self, request, *args, **kwargs):
-    #
-    #     ins = BookMark.objects.filter(
-    #         restaurant=request.data['restaurant'],
-    #         bookmarks=request.user
-    #     )
-    #
-    #     if ins:
-    #         return super().destroy(request, *args, **kwargs)
-    #     else:
-    #         return Response(status.HTTP_404_NOT_FOUND)
 
     def perform_create(self, serializer):
         instance = Restaurant.objects.get(id=self.request.data['restaurant'])

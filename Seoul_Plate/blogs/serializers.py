@@ -4,6 +4,7 @@ from blogs.models import Blog
 
 
 class BlogSerializer(serializers.ModelSerializer):
+    """ 포스트 내용 serializer """
     class Meta:
         model = Blog
         fields = (

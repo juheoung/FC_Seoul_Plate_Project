@@ -4,6 +4,7 @@ from restaurant.models import Restaurant
 
 
 class RestSerializer(serializers.ModelSerializer):
+    """ 식당 정보, 북마크 수 Serializer """
     rest_count = serializers.ReadOnlyField()
     class Meta:
         model = Restaurant

@@ -15,7 +15,6 @@ class BookMarkTestCode(APITestCase):
         )
         self.restaurant = Restaurant.objects.create()
 
-
     def test_bookmark_create(self):
         self.client.force_authenticate(user=self.user)
         data = {
@@ -38,7 +37,6 @@ class BookMarkTestCode(APITestCase):
 
         self.assertFalse(BookMark.objects.filter(id=entry.id).exists())
 
-
     def test_bookmark_duplicate(self):
         self.client.force_authenticate(user=self.user)
         data = {
@@ -47,7 +45,6 @@ class BookMarkTestCode(APITestCase):
         response = self.client.post('/api/bookmark/', data=data)
         response2 = self.client.post('/api/bookmark/', data=data)
 
-
         self.assertEqual(BookMark.objects.filter(
             restaurant=data['restaurant'],
             bookmarks=self.user,
@@ -55,4 +52,3 @@ class BookMarkTestCode(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response2.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
-
