@@ -1,3 +1,5 @@
+from model_bakery import baker
+from rest_framework import status
 from django.contrib.auth.models import User
 from model_bakery import baker
 from munch import Munch
@@ -9,10 +11,20 @@ from rest_framework.test import APITestCase
 class UserTestCase(APITestCase):
     def setUp(self) -> None:
         self.users = baker.make('auth.User', _quantity=3)
-        self.test_user = User.objects.create(username="test", password="1111")
-        self.test_user.set_password(raw_password="1111")
-        self.test_user.save()
-        self.data = {"username": "test", "password": "1111"}
+
+    def test_list(self):
+        """
+        All review list
+        Request : GET - /api/users/
+        """
+        user = self.users[0]
+        response = self.client.get('/api/users/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        for user_response, user in zip(response.data, self.users):
+            self.assertEqual(user_response['id'], user.id)
+            self.assertEqual(user_response['username'], user.username)
+            self.assertEqual(user_response['email'], user.email)
 
     def test_should_list_user(self):
         """

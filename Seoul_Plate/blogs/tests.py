@@ -19,6 +19,7 @@ class BlogTestCase(APITestCase):
         self.blog = Blog.objects.filter(post_owner=self.user.id).first()
 
     def test_post_create(self):
+        """"포스트 생성"""
         data = {
             'post_title': 'asdasdad',
             'post_contents': 'sdsadas',
@@ -33,6 +34,7 @@ class BlogTestCase(APITestCase):
         self.assertEqual(blog_response.post_owner, self.user.id)
 
     def test_post_list(self):
+        """"포스트 리스"""
         self.client.force_authenticate(user=self.user)
         response = self.client.get('/api/blogs/')
 
@@ -42,6 +44,7 @@ class BlogTestCase(APITestCase):
             self.assertEqual(blog_response['post_owner'], blog.post_owner_id)
 
     def test_post_detail(self):
+        """"포스트 디테일"""
         self.client.force_authenticate(user=self.user)
         response = self.client.get(f'/api/blogs/{self.blog.id}')
 
@@ -51,6 +54,7 @@ class BlogTestCase(APITestCase):
         self.assertEqual(blog_response.post_contents, self.blog.post_contents)
 
     def test_post_update(self):
+        """포스트 업데이"""
         prev_content = self.blog.post_contents
         data = {
             'post_title': 'abc',
@@ -65,8 +69,11 @@ class BlogTestCase(APITestCase):
         self.assertNotEqual(blog_response.post_contents, prev_content)
 
     def test_post_delete(self):
+        """포스트 삭제 """
         self.client.force_authenticate(user=self.user)
         response = self.client.delete(f'/api/blogs/{self.blog.id}')
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Blog.objects.filter(pk=self.blog.id).count(), 0)
+
+

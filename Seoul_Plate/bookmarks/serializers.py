@@ -10,19 +10,16 @@ class BookMarkSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookMark
         fields = (
+            'id',
             'restaurant',
             'bookmarks',
         )
 
 
 class UserBookMarkSerializer(serializers.ModelSerializer):
+    restaurant = RestSerializer(read_only= True)
     class Meta:
         model = BookMark
         fields = (
             'restaurant',
         )
-
-    def to_representation(self, instance):
-        response = super().to_representation(instance)
-        response['rest_info'] = RestSerializer(instance.restaurant).data
-        return response
