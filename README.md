@@ -39,7 +39,9 @@ pip install -r requirements.txt
 - show review written by user
 - show blogs written by user
 
-### contributors
+## contributors
+
+---
 
 - 박주형
 - 서동혁
