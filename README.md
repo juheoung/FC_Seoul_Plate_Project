@@ -7,7 +7,7 @@ django 3.0.7
 
 ---
 
-pip install -r requirements.txt
+pip install -r r.txt
 
 
 
