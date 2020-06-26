@@ -45,4 +45,4 @@ pip install -r requirements.txt
 - 서동혁
 - 최사라
 - 황선웅
-- 고은경
+- 고은
