@@ -13,4 +13,3 @@ class Blog(models.Model):
     post_owner = models.ForeignKey(User, default='', null=False, on_delete=models.CASCADE)
     #  포스트 생성 날짜
     post_date = models.DateTimeField(auto_now_add=True)
-    #

@@ -1,11 +1,13 @@
 from rest_framework import serializers
-
 from restaurant.models import Restaurant
+from review.serializers import ReviewSerializer
 
 
 class RestSerializer(serializers.ModelSerializer):
     """ 식당 정보, 북마크 수 Serializer """
     rest_count = serializers.ReadOnlyField()
+    owner_rest = ReviewSerializer(many=True, read_only=True)
+
     class Meta:
         model = Restaurant
         fields = (
@@ -18,5 +20,6 @@ class RestSerializer(serializers.ModelSerializer):
             'rest_sale',
             'rest_time',
             'rest_break_time',
-            'rest_count'
+            'rest_count',
+            'owner_rest'
         )
