@@ -36,3 +36,6 @@ class Review(models.Model):
     taste_value = models.CharField(max_length=10, choices=TASTE_CHOICES, default=SOSO)
     # 작성 시간
     updated_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-updated_at']

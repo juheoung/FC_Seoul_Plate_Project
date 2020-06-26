@@ -24,9 +24,6 @@ class ReviewTestCase(APITestCase):
                                             owner_user=self.test_user,
                                             taste_value="SOSO",)
 
-        # self.test_user.set_password(raw_password="1111")
-        # self.test_user.save()
-
     def test_should_get_review(self):
         """
         Detail review information
@@ -58,6 +55,7 @@ class ReviewTestCase(APITestCase):
         self.assertTrue(review_response.id)
         self.assertEqual(review_response.review_text, data['review_text'])
         # self.assertEqual(review_response.review_image, data['review_image'])
+
 
     def test_should_delete_review(self):
         """
