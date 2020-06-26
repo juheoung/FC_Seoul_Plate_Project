@@ -39,7 +39,7 @@ class BlogTestCase(APITestCase):
         response = self.client.get('/api/blogs/')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        for blog_response, blog in zip(response.data, self.blogs):
+        for blog_response, blog in zip(response.data['results'], self.blogs[::-1]):
             self.assertEqual(blog_response['post_contents'], blog.post_contents)
             self.assertEqual(blog_response['post_owner'], blog.post_owner_id)
 

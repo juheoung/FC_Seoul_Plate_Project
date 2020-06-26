@@ -27,7 +27,6 @@ class BookMarkViewSet(
         else:
             return super().create(request, *args, **kwargs)
 
-
     def perform_create(self, serializer):
         instance = Restaurant.objects.get(id=self.request.data['restaurant'])
         instance.rest_count += 1
