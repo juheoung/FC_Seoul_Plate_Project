@@ -8,3 +8,4 @@ class Blog(models.Model):
     post_image = models.ImageField(upload_to='blog_image', null=True)
     post_owner = models.ForeignKey(User, default='', null=False, on_delete=models.CASCADE)
     post_date = models.DateTimeField(auto_now_add=True)
+
