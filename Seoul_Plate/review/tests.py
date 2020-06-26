@@ -70,7 +70,6 @@ class ReviewTestCase(APITestCase):
         response = self.client.delete(f'/api/reviews/{self.review.id}')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(Review.objects.filter(id=entry.id).exists())
-        self.fail()
 
     def test_should_update_review(self):
         """
