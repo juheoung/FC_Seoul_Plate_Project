@@ -20,11 +20,8 @@ class Crawling:
         'https://www.mangoplate.com/search/%EC%84%B1%EC%88%98%EB%8F%99?keyword=%EC%84%B1%EC%88%98%EB%8F%99&page=10',
     ]
 
-<<<<<<< HEAD
     driver = webdriver.Chrome('/Users/happy/Downloads/chromedriver')
-=======
-    driver = webdriver.Chrome('/Users/parkjuheoung/Downloads/chromedriver')
->>>>>>> e1a79450099e1fb86b9e432320f59f27e8766aeb
+
 
     driver.implicitly_wait(3)
 

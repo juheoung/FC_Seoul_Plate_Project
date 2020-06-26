@@ -23,11 +23,3 @@ class UserBookMarkSerializer(serializers.ModelSerializer):
         fields = (
             'restaurant',
         )
-<<<<<<< HEAD
-=======
-
-    def to_representation(self, instance):
-        response = super().to_representation(instance)
-        response['rest_info'] = RestSerializer(instance.restaurant).data
-        return response
->>>>>>> e1a79450099e1fb86b9e432320f59f27e8766aeb
