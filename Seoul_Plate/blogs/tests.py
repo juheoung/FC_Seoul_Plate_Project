@@ -34,7 +34,7 @@ class BlogTestCase(APITestCase):
         self.assertEqual(blog_response.post_owner, self.user.id)
 
     def test_post_list(self):
-        """"포스트 리스"""
+        """"포스트 리스트"""
         self.client.force_authenticate(user=self.user)
         response = self.client.get('/api/blogs/')
 

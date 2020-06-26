@@ -1,5 +1,4 @@
 from django.contrib.auth.models import User
-from django.test import TestCase
 
 # Create your tests here.
 from model_bakery import baker
@@ -11,7 +10,7 @@ from restaurant.models import Restaurant
 from review.models import Review
 
 
-class UserTestCase(APITestCase):
+class ReviewTestCase(APITestCase):
     def setUp(self) -> None:
         """
         Ready before test
@@ -20,19 +19,13 @@ class UserTestCase(APITestCase):
         self.test_user = User.objects.create(username="test", password="1111")
         self.test_reviews = baker.make('review.Review', _quantity=3, )
         self.test_restaurant = Restaurant.objects.create()
+        self.review = Review.objects.create(review_text="for delete",
+                                            owner_rest=self.test_restaurant,
+                                            owner_user=self.test_user,
+                                            taste_value="SOSO",)
 
-    def test_should_list_review(self):
-        """
-        All review list
-        Request : GET - /api/reviews/
-        """
-        response = self.client.get('/api/reviews/')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-        for response_review, origin_review in zip(response.data, self.test_reviews):
-            self.assertEqual(response_review['id'], origin_review.id)
-            self.assertEqual(response_review['review_text'], origin_review.review_text)
-            self.assertEqual(response_review['review_image'], origin_review.review_image)
+        # self.test_user.set_password(raw_password="1111")
+        # self.test_user.save()
 
     def test_should_get_review(self):
         """
@@ -71,9 +64,9 @@ class UserTestCase(APITestCase):
         Request : DELETE - /api/reviews/
         """
         test_review = self.test_reviews[0]
-        self.client.force_authenticate(user=test_review)
-        entry = Review.objects.get(id=test_review.id)
-        response = self.client.delete(f'/api/reviews/{test_review.id}')
+        entry = Review.objects.get(id=self.review.id)
+        self.client.force_authenticate(user=self.test_user)
+        response = self.client.delete(f'/api/reviews/{self.review.id}')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(Review.objects.filter(id=entry.id).exists())
         self.fail()
@@ -82,9 +75,8 @@ class UserTestCase(APITestCase):
         """
         Request : PUT - /api/reviews/{review_id}
         """
-        test_review = self.test_reviews[0]
-        prev_text = test_review.review_text
-        prev_taste_value = test_review.taste_value
+        prev_text = self.review.review_text
+        prev_taste_value = self.review.taste_value
         data = {"review_text": "updated review",
                 # "review_image": None,
                 "taste_value": "GOOD",
@@ -92,7 +84,7 @@ class UserTestCase(APITestCase):
                 "owner_user": self.test_user.id,
                 }
         self.client.force_authenticate(user=self.test_user)
-        response = self.client.put(f'/api/reviews/{test_review.id}', data=data)
+        response = self.client.put(f'/api/reviews/{self.review.id}', data=data)
         review_response = Munch(response.data)
         self.assertTrue(review_response.id)
         self.assertNotEqual(review_response.review_text, prev_text)
@@ -102,16 +94,14 @@ class UserTestCase(APITestCase):
         """
         Request : PATCH - /api/reviews/{review_id}
         """
-        test_review = self.test_reviews[0]
-        prev_text = test_review.review_text
-        prev_taste_value = test_review.taste_value
+        prev_text = self.review.review_text
+        prev_taste_value = self.review.taste_value
         data = {"review_text": "patched review",
                 "taste_value": "BAD",
                 }
         self.client.force_authenticate(user=self.test_user)
-        response = self.client.patch(f'/api/reviews/{test_review.id}', data=data)
+        response = self.client.patch(f'/api/reviews/{self.review.id}', data=data)
         review_response = Munch(response.data)
         self.assertTrue(review_response.id)
         self.assertNotEqual(review_response.review_text, prev_text)
         self.assertNotEqual(review_response.taste_value, prev_taste_value)
-

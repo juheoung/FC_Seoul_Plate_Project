@@ -11,33 +11,10 @@ from rest_framework.test import APITestCase
 class UserTestCase(APITestCase):
     def setUp(self) -> None:
         self.users = baker.make('auth.User', _quantity=3)
-
-    def test_list(self):
-        """
-        All review list
-        Request : GET - /api/users/
-        """
-        user = self.users[0]
-        response = self.client.get('/api/users/')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-        for user_response, user in zip(response.data, self.users):
-            self.assertEqual(user_response['id'], user.id)
-            self.assertEqual(user_response['username'], user.username)
-            self.assertEqual(user_response['email'], user.email)
-
-    def test_should_list_user(self):
-        """
-        All user list
-        Request : GET - /api/user/
-        """
-        user = self.users[0]
-        self.client.force_authenticate(user=user)
-        response = self.client.get('/api/user/')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        for user_response, user in zip(response.data, self.users):
-            self.assertEqual(user_response['id'], user.id)
-            self.assertEqual(user_response['username'], user.username)
+        self.test_user = User.objects.create(username="test", password="1111")
+        self.test_user.set_password(raw_password="1111")
+        self.test_user.save()
+        self.data = {"username": "test", "password": "1111"}
 
     def test_should_detail_user(self):
         """
@@ -98,14 +75,14 @@ class UserTestCase(APITestCase):
         self.assertTrue(user_response.token)
         self.assertTrue(Token.objects.filter(key=user_response.token).exists())
 
-    def test_logout(self):
+    def test_should_logout(self):
         """
         Request : DELETE - /api/user/logout
         """
         response = self.client.post('/api/user/login', data=self.data)
         token = response.data['token']
         self.client.force_authenticate(user=self.test_user, token=token)
-        response = self.client.delete('/api/user/logout', HTTP_AUTHORIZATION='Token '+token)
+        response = self.client.delete('/api/user/logout', HTTP_AUTHORIZATION='Token ' + token)
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(Token.objects.filter(pk=token).exists())
