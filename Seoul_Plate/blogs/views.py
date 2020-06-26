@@ -10,4 +10,5 @@ class BlogViewSet(ModelViewSet):
     serializer_class = BlogSerializer
 
     def perform_create(self, serializer):
+        """ 리뷰 작성한 유저 저장 """
         serializer.save(post_owner=self.request.user)

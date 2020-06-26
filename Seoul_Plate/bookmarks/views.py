@@ -2,8 +2,6 @@ from restaurant.models import Restaurant
 from rest_framework import status, mixins
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
-
-from restaurant.serializer import RestSerializer
 from .models import BookMark
 from bookmarks.serializers import BookMarkSerializer
 
