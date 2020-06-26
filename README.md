@@ -18,6 +18,8 @@ pip install -r r.txt
 ### Blogs
 
 - to write restaurant post
+- to update restaurant post
+- to delete restaurant post
 - show post information
 
 ### BookMark
@@ -31,6 +33,8 @@ pip install -r r.txt
 ### Review
 
 - to write restaurant review
+- to update restaurant post
+- to delete restaurant post
 - show review information
 
 ### User
@@ -38,7 +42,7 @@ pip install -r r.txt
 - sign up for membership
 - show review written by user
 - show blogs written by user
-
+- show bookmark restaurant
 ## contributors
 
 ---
