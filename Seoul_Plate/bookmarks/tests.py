@@ -13,6 +13,8 @@ class BookMarkTestCode(APITestCase):
             username='adasd',
             password='12345'
         )
+        self.users = baker.make('auth.User', _quantity=4)
+
         self.restaurant = Restaurant.objects.create()
 
     def test_bookmark_create(self):
@@ -52,3 +54,13 @@ class BookMarkTestCode(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response2.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def test_bookmark_count(self):
+        for i in range(3):
+            self.client.force_authenticate(user=self.users[i])
+            data = {
+                'restaurant': self.restaurant.id
+            }
+            response = self.client.post('/api/bookmark/', data=data)
+
+        self.assertEqual(BookMark.objects.filter(restaurant=self.restaurant).count(), 3)
