@@ -9,6 +9,7 @@ class BookMarkSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookMark
         fields = (
+            'id',
             'restaurant',
             'bookmarks',
         )

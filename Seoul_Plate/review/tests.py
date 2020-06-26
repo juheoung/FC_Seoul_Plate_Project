@@ -6,7 +6,7 @@ from model_bakery import baker
 from munch import Munch
 from rest_framework import status
 from rest_framework.test import APITestCase
-
+from rest_framework.authtoken.models import Token
 from restaurant.models import Restaurant
 from review.models import Review
 
@@ -17,7 +17,6 @@ class UserTestCase(APITestCase):
         Ready before test
         Create random reviews(3) , random user(1), random restaurant(1)
         """
-        self.test_reviews = baker.make('review.Review', _quantity=3)
         self.test_user = User.objects.create(username="test", password="1111")
         self.test_restaurant = Restaurant.objects.create()
 
@@ -29,7 +28,7 @@ class UserTestCase(APITestCase):
         response = self.client.get('/api/reviews/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        for response_review, origin_review in zip(response.data, self.test_reviews):
+        for response_review, origin_review in zip(response.data, self.test_user[::-1]):
             self.assertEqual(response_review['id'], origin_review.id)
             self.assertEqual(response_review['review_text'], origin_review.review_text)
             self.assertEqual(response_review['review_image'], origin_review.review_image)
@@ -39,13 +38,13 @@ class UserTestCase(APITestCase):
         Detail review information
         Request : GET - /api/reviews/{review_id}
         """
-        test_review = self.test_reviews[0]
-        self.client.force_authenticate(user=test_review)
-        response = self.client.get(f'/api/reviews/{test_review.id}')
+        test_user = self.test_user
+        self.client.force_authenticate(user=test_user)
+        response = self.client.get(f'/api/reviews/{test_user.id}')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['id'], test_review.id)
-        self.assertEqual(response.data['review_text'], test_review.review_text)
-        self.assertEqual(response.data['review_image'], test_review.review_image)
+        self.assertEqual(response.data['id'], test_user.id)
+        self.assertEqual(response.data['review_text'], test_user.review_text)
+        self.assertEqual(response.data['review_image'], test_user.review_image)
 
     def test_should_create_review(self):
         """
@@ -70,6 +69,7 @@ class UserTestCase(APITestCase):
         """
         Request : DELETE - /api/reviews/
         """
+        self.client.force_authenticate(user=self.test_user)
         test_review = self.test_reviews[0]
         entry = Review.objects.get(id=test_review.id)
         response = self.client.delete(f'/api/reviews/{test_review.id}')
@@ -112,4 +112,3 @@ class UserTestCase(APITestCase):
         self.assertTrue(review_response.id)
         self.assertNotEqual(review_response.review_text, prev_text)
         self.assertNotEqual(review_response.taste_value, prev_taste_value)
-
