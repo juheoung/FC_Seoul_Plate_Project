@@ -6,6 +6,8 @@ from review.models import Review
 
 class ReviewSerializer(ModelSerializer):
     """ 리뷰 정보 Serializer """
+    # review_image = serializers.CharField(use_url=True)
+
     class Meta:
         model = Review
         fields = (

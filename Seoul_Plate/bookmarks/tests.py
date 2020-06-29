@@ -24,6 +24,7 @@ class BookMarkTestCode(APITestCase):
         }
 
         response = self.client.post('/api/bookmark/', data=data)
+
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertTrue(response.data['id'])
         self.assertEqual(response.data['restaurant'], data['restaurant'])
@@ -40,21 +41,25 @@ class BookMarkTestCode(APITestCase):
         self.assertFalse(BookMark.objects.filter(id=entry.id).exists())
 
     def test_bookmark_duplicate(self):
+        baker.make('bookmarks.BookMark', bookmarks=self.user, restaurant_id=self.restaurant.id)
+
         self.client.force_authenticate(user=self.user)
         data = {
             'restaurant': self.restaurant.id
         }
+        # network 여러번 할 필요없이 필요한 환경을 강제로 설정
+        # response = self.client.post('/api/bookmark/', data=data)
+
         response = self.client.post('/api/bookmark/', data=data)
-        response2 = self.client.post('/api/bookmark/', data=data)
 
         self.assertEqual(BookMark.objects.filter(
             restaurant=data['restaurant'],
             bookmarks=self.user,
         ).count(), 1)
 
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response2.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+    # 필요없어 보임
     def test_bookmark_count(self):
         for i in range(3):
             self.client.force_authenticate(user=self.users[i])
