@@ -27,6 +27,7 @@ class BlogTestCase(APITestCase):
 
         self.client.force_authenticate(user=self.user)
         response = self.client.post('/api/blogs/', data=data)
+
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         blog_response = Munch(response.data)
         self.assertTrue(blog_response.id)
@@ -63,6 +64,7 @@ class BlogTestCase(APITestCase):
 
         self.client.force_authenticate(user=self.user)
         response = self.client.patch(f'/api/blogs/{self.blog.id}', data=data)
+
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         blog_response = Munch(response.data)
         self.assertEqual(blog_response.post_contents, data['post_contents'])
@@ -75,5 +77,7 @@ class BlogTestCase(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Blog.objects.filter(pk=self.blog.id).count(), 0)
+        # 동일
+        self.assertFalse(Blog.objects.filter(pk=self.blog.id).exists())
 
 
